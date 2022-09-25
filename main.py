@@ -1,22 +1,32 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, status, HTTPException
 from models.models import Post
+from uuid import uuid4 as uuid
+
 
 app = FastAPI()
-
 posts = []
+
+
 @app.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return "welcome to mi FastApi"
+
+
 @app.get("/posts")
-async def root():
+async def show_posts():
     return posts
 
-
-@app.get("/hello/{name}")
-async def say_hello(name: str):
-    return {"message": f"Hello {name}"}
-
 @app.post('/posts')
-def save_posts(post: Post):
+async def save_posts(post: Post):
+    post.id = str(uuid())
     posts.append(post.dict())
-    return "recived"
+    return status.HTTP_201_CREATED
+
+
+@app.get('/posts/{post_id}')
+async def get_post(post_id: str):
+    for post in posts:
+        if post["id"] == post_id:
+            return post
+    return HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Item not found")
+
