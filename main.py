@@ -7,6 +7,6 @@ app.include_router(post)
 connection = DbConnection()
 connection.engine_connection()
 
-# engine = create_engine(f'{DB_MANAGEMENT_SYSTEM}+{DRIVER}://{USER}:{PASSWORD}@{HOST}:{PORT}/{DB}')
+
 
 
