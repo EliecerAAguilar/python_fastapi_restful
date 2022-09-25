@@ -1,12 +1,13 @@
 # Decryption Script .
 # Use one of the methods to get a key ( it must be the same as used in encrypting )
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, MetaData
 from sqlalchemy.engine import URL
 from cryptography.fernet import Fernet
 from json import loads
 
 
 class DbConnection:
+    meta = MetaData()
     @staticmethod
     def engine_connection():
         key_file = 'config/key.txt'
