@@ -2,11 +2,13 @@ from fastapi import FastAPI, status, HTTPException
 from models.models import Post
 from uuid import uuid4 as uuid
 from fastapi.responses import JSONResponse
+from sqlalchemy import create_engine
+from config.config import POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT, POSTGRES_HOST
 
 
 app = FastAPI()
 posts = []
-
+engine = create_engine(f'postgresql+psycopg2://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}')
 
 @app.get("/")
 async def root():
