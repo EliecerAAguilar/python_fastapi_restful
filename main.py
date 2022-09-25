@@ -1,12 +1,9 @@
-from fastapi import FastAPI, status, HTTPException
-from models.models import Post
-from uuid import uuid4 as uuid
-from fastapi.responses import JSONResponse
 from config.desencrypt import DbConnection
-
+from fastapi import FastAPI
+from routes.post import post
 
 app = FastAPI()
-posts = []
+app.include_router(post)
 connection = DbConnection()
 connection.engine_connection()
 
