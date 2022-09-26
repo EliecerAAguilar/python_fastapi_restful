@@ -8,6 +8,7 @@ from json import loads
 
 class DbConnection:
     meta = MetaData()
+
     @staticmethod
     def engine_connection():
         key_file = 'config/key.txt'
